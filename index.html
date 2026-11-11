@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Page title shown in the browser tab -->
+    <title>Alberto Home Page</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+    <!-- Our own CSS -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body data-page="index" data-root="" class="video-page">
+
+    <!-- ===== OPENING SHUTTER (home page only) =====
+         10 vertical slats. They turn open one after another, starting from the centre. -->
+    <div id="intro">
+        <div class="shutter shutter-left">
+            <div class="slat" style="--d: 4;"></div>
+            <div class="slat" style="--d: 3;"></div>
+            <div class="slat" style="--d: 2;"></div>
+            <div class="slat" style="--d: 1;"></div>
+            <div class="slat" style="--d: 0;"></div>
+        </div>
+        <div class="shutter shutter-right">
+            <div class="slat" style="--d: 0;"></div>
+            <div class="slat" style="--d: 1;"></div>
+            <div class="slat" style="--d: 2;"></div>
+            <div class="slat" style="--d: 3;"></div>
+            <div class="slat" style="--d: 4;"></div>
+        </div>
+
+        <!-- Thin golden line in the middle -->
+        <div class="intro-seam"></div>
+
+        <!-- Logo and tagline -->
+        <div class="logo-box">
+            <img src="images/logo/logo.jpeg" alt="Alberto Watches">
+            <p class="intro-tagline">TIME HAS A NEW STYLE</p>
+        </div>
+
+        <button id="skipIntro">SKIP INTRO</button>
+    </div>
+    <script>
+        // If the shutter was already seen in this visit, hide it straight away
+        if (sessionStorage.getItem("introSeen")) document.getElementById("intro").className = "gone";
+    </script>
+
+    <!-- ===== BACKGROUND VIDEO (stays behind the whole page) ===== -->
+    <div class="page-video" aria-hidden="true">
+        <video autoplay muted loop playsinline preload="auto">
+            <source src="videos/home-bg.mp4" type="video/mp4">
+        </video>
+        <!-- Dark layer so the text stays easy to read -->
+        <div class="page-video-overlay"></div>
+    </div>
+
+    <!-- ===== HEADER AND NAVIGATION ===== -->
+    <header class="lux-header" id="luxHeader">
+
+        <!-- Menu button (opens the navigation panel) -->
+        <button class="lux-menu-toggle" id="luxMenuToggle" aria-expanded="false" aria-controls="luxMenuPanel" aria-label="Open navigation menu">
+            <span></span><span></span><small>MENU</small>
+        </button>
+
+        <!-- Logo -->
+        <a class="lux-wordmark" href="index.html" aria-label="Alberto Watches home">
+            <img src="images/logo/logo.jpeg" alt="Alberto Watches">
+            <span>ALBERTO <i>WATCHES</i></span>
+        </a>
+
+        <!-- Search, wishlist and shopping bag icons -->
+        <div class="lux-header-actions">
+            <a href="Pages/shop.html?focus=1" aria-label="Search watches" title="Search">⌕</a>
+            <a href="Pages/wishlist.html" aria-label="Wishlist" title="Wishlist">♡<b class="badge-count" id="wishCount">0</b></a>
+            <button id="luxBagButton" aria-label="Open shopping bag" title="Shopping bag">♧<b class="badge-count" id="cartCount">0</b></button>
+        </div>
+    </header>
+
+    <!-- Dark area behind the open menu (click it to close) -->
+    <div class="lux-menu-scrim" id="luxMenuScrim"></div>
+
+    <!-- Navigation panel (edit, add or remove menu links here) -->
+    <aside class="lux-menu-panel" id="luxMenuPanel" aria-hidden="true">
+
+        <div class="lux-menu-top">
+            <div>
+                <small>EXPLORE ALBERTO</small>
+                <h2>Find your time.</h2>
+            </div>
+            <button id="luxMenuClose" aria-label="Close menu">×</button>
+        </div>
+
+        <div class="lux-menu-feature">
+            <span>THE COLLECTION</span>
+            <strong>Quiet luxury.<br>Lasting impressions.</strong>
+            <a href="Pages/collections.html">Explore collections ↗</a>
+        </div>
+
+        <!-- Main menu links -->
+        <nav class="lux-menu-links" aria-label="Main navigation">
+                <a class="lux-menu-link is-current" href="index.html"><span class="lux-link-name">Home</span><span class="lux-link-arrow">↗</span></a>
+                <a class="lux-menu-link" href="Pages/shop.html"><span class="lux-link-name">Shop all watches</span><span class="lux-link-arrow">↗</span></a>
+                <a class="lux-menu-link" href="Pages/shop.html?cat=men"><span class="lux-link-name">Men's watches</span><span class="lux-link-arrow">↗</span></a>
+                <a class="lux-menu-link" href="Pages/shop.html?cat=women"><span class="lux-link-name">Women's watches</span><span class="lux-link-arrow">↗</span></a>
+                <a class="lux-menu-link" href="Pages/shop.html?cat=chronograph"><span class="lux-link-name">Chronographs</span><span class="lux-link-arrow">↗</span></a>
+                <a class="lux-menu-link" href="Pages/shop.html?cat=classic"><span class="lux-link-name">Classic watches</span><span class="lux-link-arrow">↗</span></a>
+                <a class="lux-menu-link" href="Pages/collections.html"><span class="lux-link-name">Collections</span><span class="lux-link-arrow">↗</span></a>
+                <a class="lux-menu-link" href="Pages/brands.html"><span class="lux-link-name">Signature Series</span><span class="lux-link-arrow">↗</span></a>
+                <a class="lux-menu-link" href="Pages/about.html"><span class="lux-link-name">Our story</span><span class="lux-link-arrow">↗</span></a>
+                <a class="lux-menu-link" href="Pages/services.html"><span class="lux-link-name">Services &amp; care</span><span class="lux-link-arrow">↗</span></a>
+                <a class="lux-menu-link" href="Pages/appointment.html"><span class="lux-link-name">Book appointment</span><span class="lux-link-arrow">↗</span></a>
+                <a class="lux-menu-link" href="Pages/contact.html"><span class="lux-link-name">Contact</span><span class="lux-link-arrow">↗</span></a>
+        </nav>
+
+        <!-- Shop by style (opens and closes) -->
+        <div class="lux-menu-categories">
+            <button class="lux-category-toggle" aria-expanded="false">SHOP BY STYLE <span>＋</span></button>
+            <div class="lux-category-list">
+                <a href="Pages/shop.html?cat=automatic">Automatic</a>
+                <a href="Pages/shop.html?cat=formal">Formal</a>
+                <a href="Pages/shop.html?cat=sports">Sports</a>
+                <a href="Pages/shop.html?cat=luxury">Luxury</a>
+            </div>
+        </div>
+
+        <div class="lux-menu-bottom">
+            <a href="Pages/wishlist.html">Wishlist ♡</a>
+            <a href="Pages/cart.html">Shopping bag →</a>
+        </div>
+    </aside>
+
+    <main>
+
+        <!-- Hero Section -->
+        <section class="hero">
+
+            <div class="smoke"></div>
+
+            <div class="container position-relative">
+                <div class="row align-items-center g-4">
+
+                    <!-- Hero Content -->
+                    <div class="col-lg-6 reveal-right">
+
+                        <p class="label">
+                            Fine watches for modern lives
+                        </p>
+
+                        <h1>
+                            Timeless<br>
+                            by design
+                        </h1>
+
+                        <p class="fs-5 my-4" style="max-width: 420px;">
+                            More than just a watch: a lasting statement
+                            of your style, your journey, your time.
+                        </p>
+
+                        <a class="btn btn-alberto me-2" href="Pages/shop.html">
+                            Shop Collection
+                        </a>
+
+                        <a class="btn btn-line" href="Pages/about.html">
+                            Explore Alberto
+                        </a>
+
+                    </div>
+
+                    <!-- Hero Watch Image -->
+                    <div class="col-lg-6 reveal-left">
+
+                        <!-- Main homepage image: rounded corners, soft glow, gentle float and a slow shine (see section 6 in css/style.css) -->
+                        <div class="hero-image">
+                            <img class="watch" src="images/banners/hero-watch.jpg" alt="Alberto watch on a stone">
+                            <span class="hero-shine"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Watch Categories -->
+        <section>
+
+            <div class="container">
+
+                <div class="row g-3">
+
+                    <!-- Men's Watches -->
+                    <div class="col-6 col-lg-3">
+
+                        <a class="banner b1" href="Pages/shop.html?cat=men">
+
+                            <h3>
+                                Men's<br>
+                                Watches
+                            </h3>
+
+                            <span class="label" style="color: inherit;">
+                                Shop now
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                    <!-- Women's Watches -->
+                    <div class="col-6 col-lg-3">
+
+                        <a class="banner b2" href="Pages/shop.html?cat=women">
+
+                            <h3>
+                                Women's<br>
+                                Watches
+                            </h3>
+
+                            <span class="label" style="color: inherit;">
+                                Shop now
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                    <!-- Chronograph Watches -->
+                    <div class="col-6 col-lg-3">
+
+                        <a class="banner b3" href="Pages/shop.html?cat=chronograph">
+
+                            <h3>
+                                Chrono-<br>
+                                graphs
+                            </h3>
+
+                            <span class="label" style="color: inherit;">
+                                Shop now
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                    <!-- Classic Watches -->
+                    <div class="col-6 col-lg-3">
+
+                        <a class="banner b4" href="Pages/shop.html?cat=classic">
+
+                            <h3>
+                                Classic<br>
+                                Watches
+                            </h3>
+
+                            <span class="label" style="color: inherit;">
+                                Shop now
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <!-- More Categories -->
+                <p class="mt-3 small">
+                    Also:
+
+                    <a href="Pages/shop.html?cat=automatic">Automatic</a> |
+                    <a href="Pages/shop.html?cat=formal">Formal</a> |
+                    <a href="Pages/shop.html?cat=sports">Sports</a> |
+                    <a href="Pages/shop.html?cat=luxury">Luxury</a> |
+                    <a href="Pages/collections.html">Limited Edition</a>
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- Best Sellers -->
+        <section>
+
+            <div class="container">
+
+                <p class="label">Featured collection</p>
+
+                <div class="d-flex justify-content-between align-items-end mb-4">
+
+                    <h2>Best Sellers</h2>
+
+                    <a class="label" href="Pages/shop.html">
+                        View all
+                    </a>
+
+                </div>
+
+                <div class="watch-grid watch-grid-home">
+        <!-- ===== WATCH 3: Copper Meridian Duo ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="3"
+            data-name="Copper Meridian Duo"
+            data-model="AW-LUX-1003"
+            data-price="640.0"
+            data-category="luxury men"
+            data-colors="Brown,Gold"
+            data-movement="Automatic"
+            data-material="Stainless Steel"
+            data-diameter="41"
+            data-popularity="22"
+            data-added="3"
+            data-rating="4.3"
+            data-url="Pages/Product/product-3.html">
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-3.html">
+              <!-- Colour 1: Copper (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-3.jpg" alt="Copper Meridian Duo in Copper">
+              <!-- Colour 2: Gold (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-3-gold.jpg" alt="Copper Meridian Duo in Gold">
+            </a>
+
+            <div class="product-body">
+              <h3>Copper Meridian Duo</h3>
+              <div class="model">AW-LUX-1003 &middot; &#9733; 4.3</div>
+              <div class="my-2">$640.00</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Copper" aria-label="Copper" style="background: #A8623A;"></button>
+                <button type="button" class="swatch" data-view="2" title="Gold" aria-label="Gold" style="background: #C2A26B;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Copper</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== WATCH 1: Obsidian Noir Automatic ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="1"
+            data-name="Obsidian Noir Automatic"
+            data-model="AW-MEN-1001"
+            data-price="520.0"
+            data-category="men automatic"
+            data-colors="Black,Grey & Silver"
+            data-movement="Automatic"
+            data-material="Stainless Steel"
+            data-diameter="41"
+            data-popularity="48"
+            data-added="1"
+            data-rating="4.5"
+            data-url="Pages/Product/product-1.html">
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-1.html">
+              <!-- Colour 1: Black (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-1.jpg" alt="Obsidian Noir Automatic in Black">
+              <!-- Colour 2: Silver (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-1-silver.jpg" alt="Obsidian Noir Automatic in Silver">
+            </a>
+
+            <div class="product-body">
+              <h3>Obsidian Noir Automatic</h3>
+              <div class="model">AW-MEN-1001 &middot; &#9733; 4.5</div>
+              <div class="my-2">$520.00</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Black" aria-label="Black" style="background: #24221F;"></button>
+                <button type="button" class="swatch" data-view="2" title="Silver" aria-label="Silver" style="background: #B9B5AD;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Black</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== WATCH 28: Caramel Heritage Casual ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="28"
+            data-name="Caramel Heritage Casual"
+            data-model="AW-CLA-1028"
+            data-price="310.0"
+            data-category="classic men"
+            data-colors="Blue,Brown"
+            data-movement="Quartz"
+            data-material="Rose Gold PVD"
+            data-diameter="40"
+            data-popularity="47"
+            data-added="28"
+            data-rating="4.6"
+            data-url="Pages/Product/product-28.html">
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-28.html">
+              <!-- Colour 1: Caramel (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-28.jpg" alt="Caramel Heritage Casual in Caramel">
+              <!-- Colour 2: Navy Blue (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-28-navy-blue.jpg" alt="Caramel Heritage Casual in Navy Blue">
+            </a>
+
+            <div class="product-body">
+              <h3>Caramel Heritage Casual</h3>
+              <div class="model">AW-CLA-1028 &middot; &#9733; 4.6</div>
+              <div class="my-2">$310.00</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Caramel" aria-label="Caramel" style="background: #B07A46;"></button>
+                <button type="button" class="swatch" data-view="2" title="Navy Blue" aria-label="Navy Blue" style="background: #1F2F55;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Caramel</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== WATCH 7: Slate Horizon Steel ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="7"
+            data-name="Slate Horizon Steel"
+            data-model="AW-MEN-1007"
+            data-price="450.0"
+            data-category="men automatic"
+            data-colors="Blue,Gold"
+            data-movement="Automatic"
+            data-material="Stainless Steel"
+            data-diameter="40"
+            data-popularity="70"
+            data-added="7"
+            data-rating="4.7"
+            data-url="Pages/Product/product-7.html">
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-7.html">
+              <!-- Colour 1: Slate Blue (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-7.jpg" alt="Slate Horizon Steel in Slate Blue">
+              <!-- Colour 2: Gold Dial (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-7-gold-dial.jpg" alt="Slate Horizon Steel in Gold Dial">
+            </a>
+
+            <div class="product-body">
+              <h3>Slate Horizon Steel</h3>
+              <div class="model">AW-MEN-1007 &middot; &#9733; 4.7</div>
+              <div class="my-2">$450.00</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Slate Blue" aria-label="Slate Blue" style="background: #5C6F8A;"></button>
+                <button type="button" class="swatch" data-view="2" title="Gold Dial" aria-label="Gold Dial" style="background: #D4A53A;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Slate Blue</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== WATCH 31: Ivory Pearl Casual ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="31"
+            data-name="Ivory Pearl Casual"
+            data-model="AW-WOM-1031"
+            data-price="255.0"
+            data-category="women classic"
+            data-colors="Pink,White & Cream"
+            data-movement="Quartz"
+            data-material="Stainless Steel"
+            data-diameter="38"
+            data-popularity="58"
+            data-added="31"
+            data-rating="4.7"
+            data-url="Pages/Product/product-31.html">
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-31.html">
+              <!-- Colour 1: Ivory (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-31.jpg" alt="Ivory Pearl Casual in Ivory">
+              <!-- Colour 2: Sky Pink (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-31-sky-pink.jpg" alt="Ivory Pearl Casual in Sky Pink">
+            </a>
+
+            <div class="product-body">
+              <h3>Ivory Pearl Casual</h3>
+              <div class="model">AW-WOM-1031 &middot; &#9733; 4.7</div>
+              <div class="my-2">$255.00</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Ivory" aria-label="Ivory" style="background: #EFE6D2;"></button>
+                <button type="button" class="swatch" data-view="2" title="Sky Pink" aria-label="Sky Pink" style="background: #F4B6C8;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Ivory</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== WATCH 5: Aurelia Sunrise Two-Tone ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="5"
+            data-name="Aurelia Sunrise Two-Tone"
+            data-model="AW-CLA-1005"
+            data-price="501.5"
+            data-category="classic luxury"
+            data-colors="Multi,Rose Gold"
+            data-movement="Automatic"
+            data-material="Stainless Steel"
+            data-diameter="39"
+            data-popularity="96"
+            data-added="5"
+            data-rating="4.9"
+            data-url="Pages/Product/product-5.html">
+            <span class="tag">-15%</span>
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-5.html">
+              <!-- Colour 1: Champagne (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-5.jpg" alt="Aurelia Sunrise Two-Tone in Champagne">
+              <!-- Colour 2: Rose Gold (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-5-rose-gold.jpg" alt="Aurelia Sunrise Two-Tone in Rose Gold">
+            </a>
+
+            <div class="product-body">
+              <h3>Aurelia Sunrise Two-Tone</h3>
+              <div class="model">AW-CLA-1005 &middot; &#9733; 4.9</div>
+              <div class="my-2"><span class="old-price">$590.00</span>$501.50</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Champagne" aria-label="Champagne" style="background: #E3CFA0;"></button>
+                <button type="button" class="swatch" data-view="2" title="Rose Gold" aria-label="Rose Gold" style="background: #C9A08E;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Champagne</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- New Arrivals -->
+        <section class="alt">
+
+            <div class="container">
+
+                <p class="label">Just in</p>
+
+                <div class="d-flex justify-content-between align-items-end mb-4">
+
+                    <h2>New Arrivals</h2>
+
+                    <a class="label" href="Pages/shop.html">
+                        View all
+                    </a>
+
+                </div>
+
+                <div class="watch-grid watch-grid-home">
+        <!-- ===== WATCH 4: Argent Noir Classic ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="4"
+            data-name="Argent Noir Classic"
+            data-model="AW-MEN-1004"
+            data-price="340.0"
+            data-category="men classic"
+            data-colors="Black,Grey & Silver"
+            data-movement="Quartz"
+            data-material="Stainless Steel"
+            data-diameter="40"
+            data-popularity="59"
+            data-added="4"
+            data-rating="4.6"
+            data-url="Pages/Product/product-4.html">
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-4.html">
+              <!-- Colour 1: Silver (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-4.jpg" alt="Argent Noir Classic in Silver">
+              <!-- Colour 2: Black (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-4-black.jpg" alt="Argent Noir Classic in Black">
+            </a>
+
+            <div class="product-body">
+              <h3>Argent Noir Classic</h3>
+              <div class="model">AW-MEN-1004 &middot; &#9733; 4.6</div>
+              <div class="my-2">$340.00</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Silver" aria-label="Silver" style="background: #B9B5AD;"></button>
+                <button type="button" class="swatch" data-view="2" title="Black" aria-label="Black" style="background: #24221F;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Silver</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== WATCH 6: Aurelia Rose Two-Tone ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="6"
+            data-name="Aurelia Rose Two-Tone"
+            data-model="AW-WOM-1006"
+            data-price="560.0"
+            data-category="women luxury"
+            data-colors="Rose Gold,White & Cream"
+            data-movement="Quartz"
+            data-material="Rose Gold PVD"
+            data-diameter="36"
+            data-popularity="33"
+            data-added="6"
+            data-rating="4.4"
+            data-url="Pages/Product/product-6.html">
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-6.html">
+              <!-- Colour 1: Ivory (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-6.jpg" alt="Aurelia Rose Two-Tone in Ivory">
+              <!-- Colour 2: Rose Gold (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-6-rose-gold.jpg" alt="Aurelia Rose Two-Tone in Rose Gold">
+            </a>
+
+            <div class="product-body">
+              <h3>Aurelia Rose Two-Tone</h3>
+              <div class="model">AW-WOM-1006 &middot; &#9733; 4.4</div>
+              <div class="my-2">$560.00</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Ivory" aria-label="Ivory" style="background: #EFE6D2;"></button>
+                <button type="button" class="swatch" data-view="2" title="Rose Gold" aria-label="Rose Gold" style="background: #C9A08E;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Ivory</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== WATCH 2: Midnight Regent Leather ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="2"
+            data-name="Midnight Regent Leather"
+            data-model="AW-CLA-1002"
+            data-price="408.0"
+            data-category="classic formal men"
+            data-colors="Blue,Brown"
+            data-movement="Automatic"
+            data-material="Rose Gold PVD"
+            data-diameter="40"
+            data-popularity="85"
+            data-added="2"
+            data-rating="4.8"
+            data-url="Pages/Product/product-2.html">
+            <span class="tag">-15%</span>
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-2.html">
+              <!-- Colour 1: Navy Blue (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-2.jpg" alt="Midnight Regent Leather in Navy Blue">
+              <!-- Colour 2: Brown (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-2-brown.jpg" alt="Midnight Regent Leather in Brown">
+            </a>
+
+            <div class="product-body">
+              <h3>Midnight Regent Leather</h3>
+              <div class="model">AW-CLA-1002 &middot; &#9733; 4.8</div>
+              <div class="my-2"><span class="old-price">$480.00</span>$408.00</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Navy Blue" aria-label="Navy Blue" style="background: #1F2F55;"></button>
+                <button type="button" class="swatch" data-view="2" title="Brown" aria-label="Brown" style="background: #6B4A35;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Navy Blue</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== WATCH 35: Gunmetal Octagon Automatic ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="35"
+            data-name="Gunmetal Octagon Automatic"
+            data-model="AW-AUT-1035"
+            data-price="640.0"
+            data-category="automatic men"
+            data-colors="Grey & Silver,Purple"
+            data-movement="Automatic"
+            data-material="Stainless Steel"
+            data-diameter="41"
+            data-popularity="6"
+            data-added="35"
+            data-rating="4.3"
+            data-url="Pages/Product/product-35.html">
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-35.html">
+              <!-- Colour 1: Gunmetal Grey (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-35.jpg" alt="Gunmetal Octagon Automatic in Gunmetal Grey">
+              <!-- Colour 2: Hollow Purple (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-35-hollow-purple.jpg" alt="Gunmetal Octagon Automatic in Hollow Purple">
+            </a>
+
+            <div class="product-body">
+              <h3>Gunmetal Octagon Automatic</h3>
+              <div class="model">AW-AUT-1035 &middot; &#9733; 4.3</div>
+              <div class="my-2">$640.00</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Gunmetal Grey" aria-label="Gunmetal Grey" style="background: #5E6166;"></button>
+                <button type="button" class="swatch" data-view="2" title="Hollow Purple" aria-label="Hollow Purple" style="background: #5B2D8E;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Gunmetal Grey</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== WATCH 31: Ivory Pearl Casual ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="31"
+            data-name="Ivory Pearl Casual"
+            data-model="AW-WOM-1031"
+            data-price="255.0"
+            data-category="women classic"
+            data-colors="Pink,White & Cream"
+            data-movement="Quartz"
+            data-material="Stainless Steel"
+            data-diameter="38"
+            data-popularity="58"
+            data-added="31"
+            data-rating="4.7"
+            data-url="Pages/Product/product-31.html">
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-31.html">
+              <!-- Colour 1: Ivory (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-31.jpg" alt="Ivory Pearl Casual in Ivory">
+              <!-- Colour 2: Sky Pink (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-31-sky-pink.jpg" alt="Ivory Pearl Casual in Sky Pink">
+            </a>
+
+            <div class="product-body">
+              <h3>Ivory Pearl Casual</h3>
+              <div class="model">AW-WOM-1031 &middot; &#9733; 4.7</div>
+              <div class="my-2">$255.00</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Ivory" aria-label="Ivory" style="background: #EFE6D2;"></button>
+                <button type="button" class="swatch" data-view="2" title="Sky Pink" aria-label="Sky Pink" style="background: #F4B6C8;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Ivory</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== WATCH 3: Copper Meridian Duo ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="3"
+            data-name="Copper Meridian Duo"
+            data-model="AW-LUX-1003"
+            data-price="640.0"
+            data-category="luxury men"
+            data-colors="Brown,Gold"
+            data-movement="Automatic"
+            data-material="Stainless Steel"
+            data-diameter="41"
+            data-popularity="22"
+            data-added="3"
+            data-rating="4.3"
+            data-url="Pages/Product/product-3.html">
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-3.html">
+              <!-- Colour 1: Copper (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-3.jpg" alt="Copper Meridian Duo in Copper">
+              <!-- Colour 2: Gold (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-3-gold.jpg" alt="Copper Meridian Duo in Gold">
+            </a>
+
+            <div class="product-body">
+              <h3>Copper Meridian Duo</h3>
+              <div class="model">AW-LUX-1003 &middot; &#9733; 4.3</div>
+              <div class="my-2">$640.00</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Copper" aria-label="Copper" style="background: #A8623A;"></button>
+                <button type="button" class="swatch" data-view="2" title="Gold" aria-label="Gold" style="background: #C2A26B;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Copper</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Special Offers -->
+        <section>
+
+            <div class="container">
+
+                <p class="label">Seasonal offers</p>
+
+                <div class="d-flex justify-content-between align-items-end mb-4">
+
+                    <h2>Special Offers</h2>
+
+                    <a class="label" href="Pages/shop.html">
+                        View all
+                    </a>
+
+                </div>
+
+                <div class="watch-grid watch-grid-home">
+        <!-- ===== WATCH 2: Midnight Regent Leather ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="2"
+            data-name="Midnight Regent Leather"
+            data-model="AW-CLA-1002"
+            data-price="408.0"
+            data-category="classic formal men"
+            data-colors="Blue,Brown"
+            data-movement="Automatic"
+            data-material="Rose Gold PVD"
+            data-diameter="40"
+            data-popularity="85"
+            data-added="2"
+            data-rating="4.8"
+            data-url="Pages/Product/product-2.html">
+            <span class="tag">-15%</span>
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-2.html">
+              <!-- Colour 1: Navy Blue (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-2.jpg" alt="Midnight Regent Leather in Navy Blue">
+              <!-- Colour 2: Brown (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-2-brown.jpg" alt="Midnight Regent Leather in Brown">
+            </a>
+
+            <div class="product-body">
+              <h3>Midnight Regent Leather</h3>
+              <div class="model">AW-CLA-1002 &middot; &#9733; 4.8</div>
+              <div class="my-2"><span class="old-price">$480.00</span>$408.00</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Navy Blue" aria-label="Navy Blue" style="background: #1F2F55;"></button>
+                <button type="button" class="swatch" data-view="2" title="Brown" aria-label="Brown" style="background: #6B4A35;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Navy Blue</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== WATCH 33: Crimson Line Chronograph ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="33"
+            data-name="Crimson Line Chronograph"
+            data-model="AW-CHR-1033"
+            data-price="348.5"
+            data-category="chronograph sports men"
+            data-colors="Black,Orange & Yellow,Red"
+            data-movement="Quartz"
+            data-material="Stainless Steel"
+            data-diameter="43"
+            data-popularity="32"
+            data-added="33"
+            data-rating="4.5"
+            data-url="Pages/Product/product-33.html">
+            <span class="tag">-15%</span>
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-33.html">
+              <!-- Colour 1: Black & Red (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-33.jpg" alt="Crimson Line Chronograph in Black &amp; Red">
+              <!-- Colour 2: Mustard Yellow (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-33-mustard-yellow.jpg" alt="Crimson Line Chronograph in Mustard Yellow">
+            </a>
+
+            <div class="product-body">
+              <h3>Crimson Line Chronograph</h3>
+              <div class="model">AW-CHR-1033 &middot; &#9733; 4.5</div>
+              <div class="my-2"><span class="old-price">$410.00</span>$348.50</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Black &amp; Red" aria-label="Black &amp; Red" style="background: linear-gradient(135deg, #24221F 50%, #B02A30 50%);"></button>
+                <button type="button" class="swatch" data-view="2" title="Mustard Yellow" aria-label="Mustard Yellow" style="background: #D1A622;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Black &amp; Red</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== WATCH 64: Onyx Blossom Jewel Set ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="64"
+            data-name="Onyx Blossom Jewel Set"
+            data-model="AW-WOM-1064"
+            data-price="280.5"
+            data-category="women luxury"
+            data-colors="Black,Pink,Rose Gold"
+            data-movement="Quartz"
+            data-material="Rose Gold PVD"
+            data-diameter="34"
+            data-popularity="79"
+            data-added="64"
+            data-rating="4.2"
+            data-url="Pages/Product/product-64.html">
+            <span class="tag">-15%</span>
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-64.html">
+              <!-- Colour 1: Black & Rose Gold (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-64.jpg" alt="Onyx Blossom Jewel Set in Black &amp; Rose Gold">
+              <!-- Colour 2: Light Pink (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-64-light-pink.jpg" alt="Onyx Blossom Jewel Set in Light Pink">
+            </a>
+
+            <div class="product-body">
+              <h3>Onyx Blossom Jewel Set</h3>
+              <div class="model">AW-WOM-1064 &middot; &#9733; 4.2</div>
+              <div class="my-2"><span class="old-price">$330.00</span>$280.50</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Black &amp; Rose Gold" aria-label="Black &amp; Rose Gold" style="background: linear-gradient(135deg, #24221F 50%, #C9A08E 50%);"></button>
+                <button type="button" class="swatch" data-view="2" title="Light Pink" aria-label="Light Pink" style="background: #F2BFD0;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Black &amp; Rose Gold</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== WATCH 17: Onyx Square Smart ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="17"
+            data-name="Onyx Square Smart"
+            data-model="AW-SPO-1017"
+            data-price="212.5"
+            data-category="sports men"
+            data-colors="Black,Grey & Silver"
+            data-movement="Quartz"
+            data-material="Stainless Steel"
+            data-diameter="41"
+            data-popularity="40"
+            data-added="17"
+            data-rating="4.5"
+            data-url="Pages/Product/product-17.html">
+            <span class="tag">-15%</span>
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-17.html">
+              <!-- Colour 1: Black (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-17.jpg" alt="Onyx Square Smart in Black">
+              <!-- Colour 2: Silver (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-17-silver.jpg" alt="Onyx Square Smart in Silver">
+            </a>
+
+            <div class="product-body">
+              <h3>Onyx Square Smart</h3>
+              <div class="model">AW-SPO-1017 &middot; &#9733; 4.5</div>
+              <div class="my-2"><span class="old-price">$250.00</span>$212.50</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Black" aria-label="Black" style="background: #24221F;"></button>
+                <button type="button" class="swatch" data-view="2" title="Silver" aria-label="Silver" style="background: #B9B5AD;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Black</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== WATCH 49: Violet Strike Chronograph ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="49"
+            data-name="Violet Strike Chronograph"
+            data-model="AW-SPO-1049"
+            data-price="374.0"
+            data-category="sports chronograph men"
+            data-colors="Black,Purple,Red"
+            data-movement="Quartz"
+            data-material="Stainless Steel"
+            data-diameter="43"
+            data-popularity="24"
+            data-added="49"
+            data-rating="4.5"
+            data-url="Pages/Product/product-49.html">
+            <span class="tag">-15%</span>
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-49.html">
+              <!-- Colour 1: Black & Purple (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-49.jpg" alt="Violet Strike Chronograph in Black &amp; Purple">
+              <!-- Colour 2: Hollow Red (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-49-hollow-red.jpg" alt="Violet Strike Chronograph in Hollow Red">
+            </a>
+
+            <div class="product-body">
+              <h3>Violet Strike Chronograph</h3>
+              <div class="model">AW-SPO-1049 &middot; &#9733; 4.5</div>
+              <div class="my-2"><span class="old-price">$440.00</span>$374.00</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Black &amp; Purple" aria-label="Black &amp; Purple" style="background: linear-gradient(135deg, #24221F 50%, #6A3FA0 50%);"></button>
+                <button type="button" class="swatch" data-view="2" title="Hollow Red" aria-label="Hollow Red" style="background: #8E1A24;"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Black &amp; Purple</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== WATCH 80: Cream Heritage Open Heart ===== -->
+        <div class="watch-col">
+          <div class="product-card watch-box"
+            data-id="80"
+            data-name="Cream Heritage Open Heart"
+            data-model="AW-AUT-1080"
+            data-price="720.0"
+            data-category="automatic classic men"
+            data-colors="Multi,Rose Gold,White & Cream"
+            data-movement="Automatic"
+            data-material="Rose Gold PVD"
+            data-diameter="40"
+            data-popularity="71"
+            data-added="80"
+            data-rating="4.2"
+            data-url="Pages/Product/product-80.html">
+            <button class="wish-btn" data-act="wish" aria-label="Add to wishlist">&#9825;</button>
+
+            <!-- Watch pictures: colour 1 = original watch, colour 2 = alternative colour -->
+            <a class="product-img" href="Pages/Product/product-80.html">
+              <!-- Colour 1: Cream & Rose Gold (original watch). To change this picture, replace the src. -->
+              <img class="watch-view is-active" data-view="1" src="images/watches/catalog-80.jpg" alt="Cream Heritage Open Heart in Cream &amp; Rose Gold">
+              <!-- Colour 2: Aurora Color (alternative colour). To change this picture, replace the src. -->
+              <img class="watch-view" data-view="2" src="images/watches/colour/catalog-80-aurora-color.jpg" alt="Cream Heritage Open Heart in Aurora Color">
+            </a>
+
+            <div class="product-body">
+              <h3>Cream Heritage Open Heart</h3>
+              <div class="model">AW-AUT-1080 &middot; &#9733; 4.2</div>
+              <div class="my-2">$720.00</div>
+
+              <!-- Two colour buttons (data-view matches the picture above) -->
+              <div class="swatches">
+                <button type="button" class="swatch is-active" data-view="1" title="Cream &amp; Rose Gold" aria-label="Cream &amp; Rose Gold" style="background: linear-gradient(135deg, #EFE6D2 50%, #C9A08E 50%);"></button>
+                <button type="button" class="swatch" data-view="2" title="Aurora Color" aria-label="Aurora Color" style="background: linear-gradient(135deg, #5B2D8E, #27D3C3);"></button>
+              </div>
+              <div class="model color-line">Colour: <span class="color-name">Cream &amp; Rose Gold</span></div>
+
+              <div class="card-actions">
+                <button class="btn btn-line" data-act="quick">Quick View</button>
+                <button class="btn btn-alberto" data-act="cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Customer Benefits -->
+        <section class="trust">
+
+            <div class="container">
+
+                <div class="row text-center g-3">
+
+                    <div class="col-6 col-md-3">
+                        Authentic products
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        Free shipping over $500
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        Easy returns within 30 days
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        Customer support
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Brand Story -->
+        <section>
+
+            <div class="container">
+
+                <div class="row g-5 align-items-center">
+
+                    <div class="col-md-6 reveal-left">
+
+                        <div class="banner b1 story-box" style="min-height: 300px;">
+
+                            <h3>Our story</h3>
+
+                            <p class="story-text">
+                                Alberto began with a quiet belief: a fine
+                                watch should never need to shout. Each
+                                design is drawn with patience, finished by
+                                hand and tested for years of daily wear,
+                                so that every hour you wear it feels
+                                considered, and every year makes it more
+                                your own.
+                            </p>
+
+                            <!-- Three short facts about the brand -->
+                            <div class="story-facts">
+                                <div><strong>80</strong><span>Designs</span></div>
+                                <div><strong>2 yr</strong><span>Warranty</span></div>
+                                <div><strong>100%</strong><span>Crafted with care</span></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6 reveal-right">
+
+                        <p class="label">Brand story</p>
+
+                        <h2>Quiet luxury, made to last</h2>
+
+                        <p class="my-3">
+                            Alberto designs watches around clean lines
+                            and honest materials. Every Alberto watch
+                            starts with a simple idea: time should look
+                            as good as it feels to wear.
+                        </p>
+
+                        <a class="btn btn-alberto" href="Pages/about.html">
+                            Read more
+                        </a>
+
+                        <a
+                            class="btn btn-line ms-2"
+                            href="Pages/appointment.html"
+                        >
+                            Book an appointment
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Materials and Quality -->
+        <section>
+
+            <div class="container">
+
+                <p class="label">Craftsmanship</p>
+
+                <h2 class="mb-4">Materials and quality</h2>
+
+                <div class="row g-3">
+
+                    <div class="col-md-3">
+                        <div class="panel">
+
+                            <h4>316L steel</h4>
+
+                            <p>
+                                Strong, comfortable cases that resist wear.
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="panel">
+
+                            <h4>Scratch-resistant glass</h4>
+
+                            <p>
+                                Clear crystal that keeps the dial sharp.
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="panel">
+
+                            <h4>Real leather</h4>
+
+                            <p>
+                                Soft straps in sand, taupe and espresso.
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="panel">
+
+                            <h4>Tested movements</h4>
+
+                            <p>
+                                Every watch is timed and checked before it ships.
+                            </p>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Why Choose Alberto -->
+        <section class="alt">
+
+            <div class="container">
+
+                <h2 class="mb-4">Why choose Alberto</h2>
+
+                <div class="row g-3">
+
+                    <div class="col-md-4">
+                        <div class="panel">
+
+                            <h4>Only Alberto</h4>
+
+                            <p>
+                                We sell our own watches, so every piece
+                                meets one standard.
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="panel">
+
+                            <h4>2-year warranty</h4>
+
+                            <p>
+                                Covered against manufacturing defects.
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="panel">
+
+                            <h4>Lifetime care</h4>
+
+                            <p>
+                                Repairs, straps and servicing at our boutique.
+                            </p>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Watch Care and Gift Ideas -->
+        <section>
+
+            <div class="container">
+
+                <div class="row g-3">
+
+                    <!-- Watch Care -->
+                    <div class="col-md-6">
+                        <div class="panel">
+
+                            <p class="label">Watch care</p>
+
+                            <h3>Keep it running beautifully</h3>
+
+                            <p>
+                                Wipe with a soft cloth, avoid magnets and heat,
+                                and service it every 2-3 years.
+
+                                <a href="Pages/services.html">
+                                    See our care services
+                                </a>.
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <!-- Gift Ideas -->
+                    <div class="col-md-6">
+                        <div class="panel">
+
+                            <p class="label">Gift ideas</p>
+
+                            <h3>Give the gift of time</h3>
+
+                            <p>
+                                Boxed, ready to give.
+
+                                <a href="Pages/collections.html">
+                                    Browse the gift collection
+                                </a>
+
+                                or
+
+                                <a href="Pages/shop.html?cat=women">
+                                    women's watches
+                                </a>.
+                            </p>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- New Customer Offer -->
+        <section class="trust">
+
+            <div class="container text-center">
+
+                <h2>New customer offer: 15% off</h2>
+
+                <p>
+                    Use code <strong>WELCOME15</strong> at checkout.
+                    Also try ALBERTO10 for 10% off.
+                </p>
+
+                <a
+                    class="btn btn-line"
+                    style="color: #F5F3EA;"
+                    href="Pages/appointment.html"
+                >
+                    Book an appointment
+                </a>
+
+            </div>
+
+        </section>
+
+        <!-- Recently Viewed Products -->
+        <section class="alt">
+
+            <div class="container">
+
+                <h2 class="mb-4">Recently viewed</h2>
+
+                <!-- Filled with the watches you viewed last (see js/script.js) -->
+                <div class="watch-grid watch-grid-home" id="recentGrid"></div>
+
+            </div>
+
+        </section>
+
+        <!-- Customer Testimonials -->
+        <section>
+
+            <div class="container">
+
+                <h2 class="mb-4">Customer testimonials</h2>
+
+                <div class="row g-3">
+
+                    <div class="col-md-4">
+                        <div class="panel">
+                            "Elegant and comfortable."
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="panel">
+                            "Looks far above its price."
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="panel">
+                            "Great gift."
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Frequently Asked Questions -->
+        <section class="alt">
+
+            <div class="container" style="max-width: 800px;">
+
+                <h2 class="mb-4">Questions</h2>
+
+                <div class="accordion" id="faq">
+
+                    <!-- FAQ 1 -->
+                    <div class="accordion-item">
+
+                        <h3 class="accordion-header">
+                            <button
+                                class="accordion-button collapsed"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#q1"
+                            >
+                                How long does shipping take?
+                            </button>
+                        </h3>
+
+                        <div
+                            id="q1"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#faq"
+                        >
+                            <div class="accordion-body">
+                                Orders ship within 2 working days and arrive
+                                in 2-5 working days inside Pakistan.
+                                Shipping is free over $500, otherwise $25.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="accordion-item">
+
+                        <h3 class="accordion-header">
+                            <button
+                                class="accordion-button collapsed"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#q2"
+                            >
+                                What is your returns policy?
+                            </button>
+                        </h3>
+
+                        <div
+                            id="q2"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#faq"
+                        >
+                            <div class="accordion-body">
+                                You can return an unworn watch within 30 days
+                                in its original box for a refund or exchange.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="accordion-item">
+
+                        <h3 class="accordion-header">
+                            <button
+                                class="accordion-button collapsed"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#q3"
+                            >
+                                What warranty do Alberto watches have?
+                            </button>
+                        </h3>
+
+                        <div
+                            id="q3"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#faq"
+                        >
+                            <div class="accordion-body">
+                                Every watch has a 2-year warranty against
+                                manufacturing defects. Keep your receipt.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="accordion-item">
+
+                        <h3 class="accordion-header">
+                            <button
+                                class="accordion-button collapsed"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#q4"
+                            >
+                                How do I care for my watch?
+                            </button>
+                        </h3>
+
+                        <div
+                            id="q4"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#faq"
+                        >
+                            <div class="accordion-body">
+                                Keep it away from strong magnets, rinse after
+                                swimming only if it is rated for water, and
+                                service it every 2-3 years.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- FAQ 5 -->
+                    <div class="accordion-item">
+
+                        <h3 class="accordion-header">
+                            <button
+                                class="accordion-button collapsed"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#q5"
+                            >
+                                Can I get my watch repaired?
+                            </button>
+                        </h3>
+
+                        <div
+                            id="q5"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#faq"
+                        >
+                            <div class="accordion-body">
+                                Yes. See our Services page and book an
+                                appointment for repairs, batteries and straps.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- FAQ 6 -->
+                    <div class="accordion-item">
+
+                        <h3 class="accordion-header">
+                            <button
+                                class="accordion-button collapsed"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#q6"
+                            >
+                                Privacy Policy and Terms
+                            </button>
+                        </h3>
+
+                        <div
+                            id="q6"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#faq"
+                        >
+                            <div class="accordion-body">
+                                We only use your details to process your
+                                requests and never sell them. Orders are
+                                subject to our standard terms of sale and
+                                the warranty above.
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row g-4">
+
+                <!-- Logo -->
+                <div class="col-12 col-lg-2">
+                    <img src="images/logo/logo.jpeg" alt="Alberto Watches">
+                    <p class="small mt-3 footer-note">Exceptional watches. Lasting impressions.</p>
+                </div>
+
+                <!-- Company links -->
+                <div class="col-6 col-md-4 col-lg-2">
+                    <h4>Company</h4>
+                    <a href="Pages/about.html">About Alberto</a>
+                    <a href="Pages/about.html">Our Story</a>
+                    <a href="Pages/contact.html">Contact Us</a>
+                </div>
+
+                <!-- Shop links -->
+                <div class="col-6 col-md-4 col-lg-2">
+                    <h4>Shop</h4>
+                    <a href="Pages/shop.html">All Watches</a>
+                    <a href="Pages/shop.html?cat=men">Men's</a>
+                    <a href="Pages/shop.html?cat=women">Women's</a>
+                    <a href="Pages/shop.html?cat=automatic">Automatic</a>
+                    <a href="Pages/shop.html?cat=chronograph">Chronographs</a>
+                    <a href="Pages/shop.html?cat=classic">Classic</a>
+                    <a href="Pages/shop.html?cat=sports">Sports</a>
+                    <a href="Pages/shop.html?sort=newest">New Arrivals</a>
+                </div>
+
+                <!-- Customer care links -->
+                <div class="col-6 col-md-4 col-lg-2">
+                    <h4>Customer Care</h4>
+                    <a href="Pages/contact.html#faq">Shipping</a>
+                    <a href="Pages/contact.html#faq">Returns</a>
+                    <a href="Pages/services.html">Warranty</a>
+                    <a href="Pages/services.html">Watch Care</a>
+                    <a href="Pages/services.html">Repairs</a>
+                    <a href="Pages/contact.html#faq">FAQ</a>
+                </div>
+
+                <!-- Service links -->
+                <div class="col-6 col-md-4 col-lg-2">
+                    <h4>Services</h4>
+                    <a href="Pages/services.html">Watch Repair</a>
+                    <a href="Pages/services.html">Battery Replacement</a>
+                    <a href="Pages/services.html">Appraisal</a>
+                    <a href="Pages/services.html">Maintenance</a>
+                    <a href="Pages/appointment.html">Book an Appointment</a>
+                </div>
+
+                <!-- Newsletter and social links -->
+                <div class="col-12 col-md-8 col-lg-2">
+                    <h4>Stay in touch</h4>
+                    <form id="newsForm" novalidate>
+                        <input class="form-control mb-2" id="newsEmail" type="email" placeholder="Your email" aria-label="Newsletter email">
+                        <button class="btn btn-alberto w-100">Subscribe</button>
+                        <div id="newsMsg" class="small mt-1"></div>
+                    </form>
+                    <a href="https://wa.me/923000000000" target="_blank" rel="noopener">WhatsApp: +92 300 0000000</a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+                    <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+                    <a href="https://pinterest.com" target="_blank" rel="noopener">Pinterest</a>
+                    <a href="Pages/contact.html#faq">Privacy Policy</a>
+                    <a href="Pages/contact.html#faq">Terms and Conditions</a>
+                </div>
+            </div>
+
+            <hr class="mt-5">
+            <p class="small text-center mb-0 footer-note">&copy; 2026 Alberto Watch Company. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ===== SHOPPING BAG (slides in from the right) ===== -->
+    <div class="offcanvas offcanvas-end" id="miniCart" tabindex="-1">
+        <div class="offcanvas-header">
+            <h5 class="serif fs-3">Your Bag</h5>
+            <button class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column" id="miniBody"></div>
+    </div>
+
+    <!-- ===== QUICK VIEW POPUP (filled when "Quick View" is clicked) ===== -->
+    <div class="modal fade" id="qvModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content p-3">
+                <button class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="row g-3">
+                    <div class="col-md-6"><img class="img-fluid" id="qvImage" alt="Selected watch"></div>
+                    <div class="col-md-6">
+                        <h2 id="qvName"></h2>
+                        <div class="model" id="qvColor"></div>
+                        <p class="my-3" id="qvPrice"></p>
+                        <p id="qvInfo"></p>
+                        <a class="btn btn-alberto" id="qvLink" href="Pages/shop.html">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to top button and bottom bar -->
+    <button id="toTop" aria-label="Back to top">&uarr;</button>
+    <div class="ticker">
+        <span id="tDate"></span>
+        <span class="d-none d-md-inline">TIME HAS A NEW STYLE</span>
+        <span id="tTime"></span>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap (for the shopping bag and popup) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Our own simple script -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>
